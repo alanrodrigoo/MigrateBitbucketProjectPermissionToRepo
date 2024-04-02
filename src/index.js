@@ -3,7 +3,7 @@ const env = require('./config');
 
 (async () => {
 
-  var projects = await getProjects(env, '');
+  var projects = await getProjects(env);
   const cookie = ''
   //const cookie = `${projects.headers['set-cookie'][1].split(';')[0]}; ${projects.headers['set-cookie'][2].split(';')[0]}; ${projects.headers['set-cookie'][3].split(';')[0]}`
   var projectsWithUserPermitions = await getProjectUserPermission(env, projects.data)
@@ -17,7 +17,7 @@ async function getProjects(env, extraHeaders) {
 
   try {
     const url = `https://${env.bitbucketurl}/rest/api/latest/projects/?limit=10000`
-    res = await request(url, env.token, 'get', extraHeaders)
+    res = await request(url, env.token, 'get')
     if (res.status == 200) {
       // test for status you want, etc
       return res
